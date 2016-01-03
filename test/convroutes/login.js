@@ -86,13 +86,13 @@ describe("POST /login", () => {
                 }
             }),
             jwtIssuer: "jwtIssuer",
-            jwtSecret: "jwtSecret"
+            jwtSecret: new Buffer("jwtSecret")
         };
         const token = sign({
             sub: "userId",
             iss: "jwtIssuer",
             jti: "uuid"
-        }, "jwtSecret");
+        }, new Buffer("jwtSecret"));
         return request(getServer(options))
             .post("/login")
             .send({email: "test@example.com", password: "hunter2"})

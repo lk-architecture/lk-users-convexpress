@@ -17,7 +17,7 @@ export function getGetServer (getConvroute) {
             findUserById: () => null,
             getUserId: () => null,
             jwtIssuer: "jwtIssuer",
-            jwtSecret: "jwtSecret"
+            jwtSecret: new Buffer("jwtSecret")
         };
         const convroute = getConvroute({
             ...baseOptions,
