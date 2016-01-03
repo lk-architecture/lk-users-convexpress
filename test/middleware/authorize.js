@@ -1,12 +1,7 @@
-// import chai, {expect} from "chai";
 import express from "express";
-// import sinon from "sinon";
-// import sinonChai from "sinon-chai";
 import request from "supertest-as-promised";
-//
+
 import {getMiddleware} from "middleware/authorize";
-//
-// chai.use(sinonChai);
 
 describe("authorize middleware [OPERATION: createUser]", () => {
 
