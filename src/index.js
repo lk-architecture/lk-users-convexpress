@@ -5,7 +5,7 @@ import getRemoveRole from "./convroutes/remove-role";
 import getRemoveUser from "./convroutes/remove-user";
 import getReplaceProfile from "./convroutes/replace-profile";
 
-export default function getConvroutes (options) {
+export function getConvroutes (options) {
     return {
         addRole: getAddRole(options),
         createUser: getCreateUser(options),
@@ -15,3 +15,5 @@ export default function getConvroutes (options) {
         replaceProfile: getReplaceProfile(options)
     };
 }
+
+export {default as getAuthenticate} from "./middleware/authenticate";
