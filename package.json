@@ -1,7 +1,7 @@
 {
   "name": "lk-users-convexpress",
   "version": "1.0.0",
-  "description": "Convexpress routes to implement a user system in the lk-architecture",
+  "description": "Convexpress routes and middleware to implement a user system in the lk-architecture",
   "main": "lib/index.js",
   "scripts": {
     "build": "babel src --out-dir lib",

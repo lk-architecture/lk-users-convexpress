@@ -16,4 +16,4 @@ export function getConvroutes (options) {
     };
 }
 
-export {default as getAuthenticate} from "./middleware/authenticate";
+export {default as getAuthenticateMiddleware} from "./middleware/authenticate";
