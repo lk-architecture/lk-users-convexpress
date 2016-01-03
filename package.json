@@ -46,7 +46,7 @@
   },
   "dependencies": {
     "bcryptjs": "^2.3.0",
-    "convexpress": "^1.3.2",
+    "convexpress": "^1.3.3",
     "express-jwt": "^3.3.0",
     "jsonwebtoken": "^5.5.0",
     "node-uuid": "^1.4.7"
