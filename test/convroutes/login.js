@@ -4,7 +4,7 @@ import {sign} from "jsonwebtoken";
 
 import {getGetServer} from "../test-utils";
 import getLogin from "convroutes/login";
-import {hash} from "utils/bcrypt";
+import {hash} from "convroutes/utils/bcrypt";
 
 describe("POST /login", () => {
 

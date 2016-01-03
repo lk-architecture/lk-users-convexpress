@@ -1,7 +1,7 @@
 import express from "express";
 import request from "supertest-as-promised";
 
-import {getMiddleware} from "middleware/authorize";
+import {getMiddleware} from "convroutes/middleware/authorize";
 
 describe("authorize middleware [OPERATION: createUser]", () => {
 

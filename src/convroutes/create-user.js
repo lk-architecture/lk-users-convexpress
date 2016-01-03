@@ -1,8 +1,8 @@
 import {randomBytes} from "crypto";
 import {v4} from "node-uuid";
 
-import {hash} from "../utils/bcrypt";
-import * as authorize from "../middleware/authorize";
+import {hash} from "./utils/bcrypt";
+import * as authorize from "./middleware/authorize";
 
 export default function getConvroute (options) {
     const {dispatchEvent, findUserByEmail} = options;

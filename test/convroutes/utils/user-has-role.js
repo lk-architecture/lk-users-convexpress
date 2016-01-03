@@ -1,6 +1,6 @@
 import {expect} from "chai";
 
-import userHasRole from "utils/user-has-role";
+import userHasRole from "convroutes/utils/user-has-role";
 
 describe("userHasRole util", () => {
 

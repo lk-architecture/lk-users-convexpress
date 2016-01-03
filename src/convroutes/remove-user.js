@@ -1,5 +1,5 @@
-import * as authorize from "../middleware/authorize";
-import * as ensureUserExists from "../middleware/ensure-user-exists";
+import * as authorize from "./middleware/authorize";
+import * as ensureUserExists from "./middleware/ensure-user-exists";
 
 export default function getConvroute (options) {
     const {dispatchEvent} = options;

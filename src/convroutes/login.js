@@ -1,7 +1,7 @@
 import {sign} from "jsonwebtoken";
 import {v4} from "node-uuid";
 
-import {compare} from "../utils/bcrypt";
+import {compare} from "./utils/bcrypt";
 
 export default function getConvroute (options) {
     const {findUserByEmail, getUserId, jwtIssuer, jwtSecret} = options;

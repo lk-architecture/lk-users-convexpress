@@ -1,7 +1,7 @@
 import express from "express";
 import request from "supertest-as-promised";
 
-import {getMiddleware} from "middleware/ensure-user-exists";
+import {getMiddleware} from "convroutes/middleware/ensure-user-exists";
 
 describe("ensureUserExists middleware", () => {
 
