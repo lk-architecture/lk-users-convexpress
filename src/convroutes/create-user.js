@@ -10,6 +10,7 @@ export default function getConvroute (options) {
         path: "/users",
         method: "post",
         description: "Create user",
+        tags: ["users"],
         parameters: [{
             name: "user",
             in: "body",

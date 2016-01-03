@@ -8,6 +8,7 @@ export default function getConvroute (options) {
         path: "/users/:userId/roles",
         method: "post",
         description: "Add role to user",
+        tags: ["users"],
         parameters: [
             {
                 name: "userId",

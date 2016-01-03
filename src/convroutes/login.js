@@ -9,6 +9,7 @@ export default function getConvroute (options) {
         path: "/login",
         method: "post",
         description: "Obtain a jwt api token",
+        tags: ["users"],
         parameters: [{
             name: "credentials",
             in: "body",

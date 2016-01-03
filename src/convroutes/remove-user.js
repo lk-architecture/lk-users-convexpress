@@ -7,6 +7,7 @@ export default function getConvroute (options) {
         path: "/users/:userId",
         method: "delete",
         description: "Remove user",
+        tags: ["users"],
         parameters: [{
             name: "userId",
             in: "path",

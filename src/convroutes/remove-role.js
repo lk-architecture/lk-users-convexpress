@@ -8,6 +8,7 @@ export default function getConvroute (options) {
         path: "/users/:userId/roles/:role",
         method: "delete",
         description: "Remove role from user",
+        tags: ["users"],
         parameters: [
             {
                 name: "userId",

@@ -7,6 +7,7 @@ export default function getConvroute (options) {
         path: "/users/:userId/profile",
         method: "put",
         description: "Replace user profile",
+        tags: ["users"],
         parameters: [
             {
                 name: "userId",
