@@ -1,7 +1,9 @@
 import * as authorize from "../middleware/authorize";
+import * as ensureUserExists from "../middleware/ensure-user-exists";
+import userHasRole from "../utils/user-has-role";
 
 export default function getConvroute (options) {
-    const {dispatchEvent, findUserById} = options;
+    const {dispatchEvent} = options;
     return {
         path: "/users/:userId/roles/:role",
         method: "delete",
@@ -20,24 +22,17 @@ export default function getConvroute (options) {
         ],
         responses: {
             ...authorize.responses,
-            "404": {
-                description: "User or user role not found"
-            },
+            ...ensureUserExists.responses,
             "204": {
                 description: "Role removed successfully"
             }
         },
         middleware: [
-            authorize.getMiddleware("removeRole", options)
+            authorize.getMiddleware("removeRole", options),
+            ensureUserExists.getMiddleware(options)
         ],
         handler: async (req, res) => {
-            const user = findUserById(req.params.userId);
-            if (!user) {
-                return res.status(404).send({
-                    message: `No user found with id ${req.params.userId}`
-                });
-            }
-            if (user.roles.indexOf(req.params.role) === -1) {
+            if (!userHasRole(req.targetUser, req.params.role)) {
                 return res.status(404).send({
                     message: `User ${req.params.userId} has no role ${req.params.role}`
                 });

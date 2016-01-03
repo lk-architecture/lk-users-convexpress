@@ -45,7 +45,7 @@ export default function getConvroute (options) {
         ],
         handler: async (req, res) => {
             if (await findUserByEmail(req.body.email)) {
-                res.status(409).send({
+                return res.status(409).send({
                     message: "A user with that email already exists"
                 });
             }
@@ -72,8 +72,8 @@ export default function getConvroute (options) {
             await dispatchEvent(
                 "user created",
                 {
-                    element: user,
-                    id: userId
+                    userId: userId,
+                    userObject: user
                 },
                 {sourceUserId: req.userId}
             );

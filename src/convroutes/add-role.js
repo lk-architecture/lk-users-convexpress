@@ -1,9 +1,11 @@
 import * as authorize from "../middleware/authorize";
+import * as ensureUserExists from "../middleware/ensure-user-exists";
+import userHasRole from "../utils/user-has-role";
 
 export default function getConvroute (options) {
-    const {dispatchEvent, findUserById} = options;
+    const {dispatchEvent} = options;
     return {
-        path: "/users/:userId/roles/:role",
+        path: "/users/:userId/roles",
         method: "post",
         description: "Add role to user",
         parameters: [
@@ -13,16 +15,24 @@ export default function getConvroute (options) {
                 required: true
             },
             {
-                name: "role",
-                in: "path",
-                required: true
+                name: "roleDescriptor",
+                in: "body",
+                required: true,
+                schema: {
+                    type: "object",
+                    properties: {
+                        role: {
+                            type: "string"
+                        }
+                    },
+                    additionalProperties: false,
+                    required: ["role"]
+                }
             }
         ],
         responses: {
             ...authorize.responses,
-            "404": {
-                description: "User not found"
-            },
+            ...ensureUserExists.responses,
             "409": {
                 description: "User already has role"
             },
@@ -31,25 +41,20 @@ export default function getConvroute (options) {
             }
         },
         middleware: [
-            authorize.getMiddleware("addRole", options)
+            authorize.getMiddleware("addRole", options),
+            ensureUserExists.getMiddleware(options)
         ],
         handler: async (req, res) => {
-            const user = findUserById(req.params.userId);
-            if (!user) {
-                return res.status(404).send({
-                    message: `No user found with id ${req.params.userId}`
-                });
-            }
-            if (user.roles.indexOf(req.params.role) !== -1) {
+            if (userHasRole(req.targetUser, req.body.role)) {
                 return res.status(409).send({
-                    message: `User ${req.params.userId} already has role ${req.params.role}`
+                    message: `User ${req.params.userId} already has role ${req.body.role}`
                 });
             }
             await dispatchEvent(
                 "role added to user",
                 {
                     userId: req.params.userId,
-                    role: req.params.role
+                    role: req.body.role
                 },
                 {sourceUserId: req.userId}
             );

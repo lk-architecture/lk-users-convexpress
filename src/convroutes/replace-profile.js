@@ -1,7 +1,8 @@
 import * as authorize from "../middleware/authorize";
+import * as ensureUserExists from "../middleware/ensure-user-exists";
 
 export default function getConvroute (options) {
-    const {dispatchEvent, findUserById} = options;
+    const {dispatchEvent} = options;
     return {
         path: "/users/:userId/profile",
         method: "put",
@@ -23,25 +24,18 @@ export default function getConvroute (options) {
         ],
         responses: {
             ...authorize.responses,
-            "404": {
-                description: "User not found"
-            },
+            ...ensureUserExists.responses,
             "204": {
                 description: "Profile replaced successfully"
             }
         },
         middleware: [
-            authorize.getMiddleware("replaceProfile", options)
+            authorize.getMiddleware("replaceProfile", options),
+            ensureUserExists.getMiddleware(options)
         ],
         handler: async (req, res) => {
-            const user = findUserById(req.params.userId);
-            if (!user) {
-                return res.status(404).send({
-                    message: `No user found with id ${req.params.userId}`
-                });
-            }
             await dispatchEvent(
-                "profile replaced in user",
+                "profile replaced for user",
                 {
                     userId: req.params.userId,
                     profile: req.body

@@ -1,7 +1,8 @@
 import * as authorize from "../middleware/authorize";
+import * as ensureUserExists from "../middleware/ensure-user-exists";
 
 export default function getConvroute (options) {
-    const {dispatchEvent, findUserById} = options;
+    const {dispatchEvent} = options;
     return {
         path: "/users/:userId",
         method: "delete",
@@ -13,26 +14,19 @@ export default function getConvroute (options) {
         }],
         responses: {
             ...authorize.responses,
-            "404": {
-                description: "User not found"
-            },
+            ...ensureUserExists.responses,
             "204": {
                 description: "User removed successfully"
             }
         },
         middleware: [
-            authorize.getMiddleware("removeUser", options)
+            authorize.getMiddleware("removeUser", options),
+            ensureUserExists.getMiddleware(options)
         ],
         handler: async (req, res) => {
-            const user = findUserById(req.params.userId);
-            if (!user) {
-                return res.status(404).send({
-                    message: `No user found with id ${req.params.userId}`
-                });
-            }
             await dispatchEvent(
                 "user removed",
-                {id: req.params.userId},
+                {userId: req.params.userId},
                 {sourceUserId: req.userId}
             );
             res.status(204).send();

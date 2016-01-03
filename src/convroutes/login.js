@@ -4,11 +4,11 @@ import {v4} from "node-uuid";
 import {compare} from "../utils/bcrypt";
 
 export default function getConvroute (options) {
-    const {findUserByEmail, jwtIssuer, jwtSecret} = options;
+    const {findUserByEmail, getUserId, jwtIssuer, jwtSecret} = options;
     return {
         path: "/login",
         method: "post",
-        description: "Obtain a jwt token",
+        description: "Obtain a jwt api token",
         parameters: [{
             name: "credentials",
             in: "body",
@@ -54,7 +54,7 @@ export default function getConvroute (options) {
                 });
             }
             const token = sign({
-                sub: user._id,
+                sub: getUserId(user),
                 iss: jwtIssuer,
                 jti: v4()
             }, jwtSecret);

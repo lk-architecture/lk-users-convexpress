@@ -6,12 +6,12 @@
   "scripts": {
     "build": "babel src --out-dir lib",
     "clean": "rimraf lib coverage",
-    "coverage": "NODE_ENV=test babel-node $(npm bin)/isparta cover $(npm bin)/_mocha -- --recursive",
-    "codecov": "cat coverage/lcov.info | codecov",
+    "coverage": "NODE_ENV=test NODE_PATH=src babel-node $(npm bin)/isparta cover $(npm bin)/_mocha -- --recursive",
+    "codecov": "codecov",
     "dev": "npm test -- --watch",
     "lint": "eslint src test",
     "prepublish": "npm run clean && npm run build",
-    "test": "NODE_ENV=test mocha --compilers js:babel-core/register --require babel-polyfill --recursive"
+    "test": "NODE_ENV=test NODE_PATH=src mocha --compilers js:babel-core/register --require babel-polyfill --recursive"
   },
   "author": "Team Wattellina <wattellina@mondora.com>",
   "license": "Apache-2.0",
@@ -46,6 +46,7 @@
   },
   "dependencies": {
     "bcryptjs": "^2.3.0",
+    "convexpress": "^1.3.0",
     "jsonwebtoken": "^5.5.0",
     "node-uuid": "^1.4.7"
   }
