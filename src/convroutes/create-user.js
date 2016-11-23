@@ -1,5 +1,5 @@
 import {randomBytes} from "crypto";
-import {v4} from "node-uuid";
+import {v4} from "uuid";
 
 import {hash} from "./utils/bcrypt";
 import * as authorize from "./middleware/authorize";

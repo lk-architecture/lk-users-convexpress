@@ -1,5 +1,5 @@
 import {sign} from "jsonwebtoken";
-import {v4} from "node-uuid";
+import {v4} from "uuid";
 
 import {compare} from "./utils/bcrypt";
 
